@@ -39,6 +39,11 @@ public class DeleteChildOfParent {
 
 	}
 
+	/***
+	 * first delete the 
+	 * @param tree
+	 * @param node
+	 */
 	public static void deleteNode(Map<String, LinkedList<String>> tree, String node) {	
 
 		for (Entry<String, LinkedList<String>> entry : tree.entrySet()) {
