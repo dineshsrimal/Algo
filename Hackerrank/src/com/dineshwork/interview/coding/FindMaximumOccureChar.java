@@ -48,8 +48,6 @@ public class FindMaximumOccureChar {
 				if(charPosition.get(entry.getKey()) < mxCharIdx ) {
 					maxChar = entry.getKey();
 				}
-				
-				
 			}
 		}
 		
