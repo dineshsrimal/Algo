@@ -1,10 +1,12 @@
-package com.dineshwork;
+package com.dineshwork.interview.coding;
 
 
 public class CountUniquePairs2 {
 	public static void main(String[] args) {
 		int[] arr = {2, 3, 1, 7, 5, 4, 2, 1 , 6, 3};
-		System.out.println("Pair Count: " + findUniquePairsEfficient(arr, 5));
+		int[] arr1 = {4,6,9,4,1,3};
+		System.out.println("Pair Count in arr: " + findUniquePairsEfficient(arr, 5));
+		System.out.println("Pair Count in arr1: " + findUniquePairsEfficient(arr1, 5));
 	}
 	
 	

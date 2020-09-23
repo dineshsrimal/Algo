@@ -1,4 +1,4 @@
-package com.dineshwork;
+package com.dineshwork.interview.coding;
 
 public class CountingValleys {
 

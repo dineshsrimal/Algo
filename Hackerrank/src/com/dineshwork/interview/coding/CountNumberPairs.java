@@ -1,4 +1,4 @@
-package com.dineshwork;
+package com.dineshwork.interview.coding;
 
 import java.util.ArrayList;
 import java.util.List;
