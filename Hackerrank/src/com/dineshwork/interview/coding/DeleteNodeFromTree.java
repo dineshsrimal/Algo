@@ -6,7 +6,7 @@ public class DeleteNodeFromTree {
 	
 	public static void main(String[] args) {
 		int[] parentArr = {1, 4, 1, 9, 3, 7, 0};
-		int[] childArr = {4, 5, 3, 12, 8, 10, 2};
+		int[] childArr = {4, 5, 3, 7, 8, 1, 2};
 
 		Map<Integer, List<Integer>> tree = new HashMap<>();
 		
@@ -25,17 +25,18 @@ public class DeleteNodeFromTree {
 		System.out.println(tree);
 		deleteParent(tree, 1);
 		
-		//System.out.println(tree);
+		System.out.println("after removal: " + tree);
 	}
 	
 	public static void deleteParent(Map<Integer, List<Integer>> tree, int parent) {
 		
 		List<Integer> childs = tree.get(parent);
+		tree.remove(parent);
 		
 		if(childs == null) return;
 		
 		childs.forEach(c -> {
-			System.out.println("Kill" + c);
+			System.out.println("Kill" + c);			
 			deleteParent(tree, c);			
 		});
 	}

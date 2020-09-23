@@ -1,6 +1,8 @@
 package com.dineshwork.interview.coding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,8 +32,11 @@ public class DeleteNodeFromTree2 {
 			}			
 			
 			parentNode.childs.add(childNode);
+			tree.put(parentPID, parentNode);
+			tree.put(childPID, childNode);
 		}
 		
+		System.out.println(tree);
 		System.out.println("delete parent...: " + deleteParentProcess(tree, new Node(4)));
 	}
 	
@@ -40,33 +45,28 @@ public class DeleteNodeFromTree2 {
 		Queue<Node> traversedNodes = new LinkedList<>();
 		traversedNodes.add(rootNode);
 		rootNode.isVisited = true;
-		//Node immdediateParent = null;
-		boolean isNodeDeleted = false;
 
 		while (!traversedNodes.isEmpty()) {
 
 			Node currentNode = traversedNodes.remove();
 
-			/*
-			 * if(currentNode.id == deleteNode.id) { return currentNode; }
-			 */
 
 			for (Node node : currentNode.childs) {
 				if (node.isVisited == false) {
+					System.out.println("Visting Node: " + node.id);
 					node.isVisited = true;
 					traversedNodes.add(node);
 				}
 
 				if (node.equals(deleteNode)) {
 					currentNode.childs.remove(node);
-					isNodeDeleted = true;
-					break;
+					return true;
 				}
 
 			}
 		}
 		
-		return isNodeDeleted;
+		return false;
 	}
 }
 
@@ -87,5 +87,10 @@ class Node{
 	
 	public int hashCode() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Node[id=" + id + " childs="+ Arrays.toString(childs.toArray()) + "]";
 	}
 }
