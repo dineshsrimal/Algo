@@ -2,7 +2,7 @@ package com.dineshwork.interview.coding;
 
 import java.util.*;
 
-public class ParentChildTest {
+public class DeleteNodeFromTree {
 	
 	public static void main(String[] args) {
 		int[] parentArr = {1, 4, 1, 9, 3, 7, 0};

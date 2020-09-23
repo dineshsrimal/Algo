@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class DeleteChildOfParent2 {
+public class DeleteNodeFromTree2 {
 	
 	public static void main(String[] args) {
 		String[] parentChildPIDMapping = { "1,2", "1,3", "2,4", "2,5", "3,6", "3,7", "4,8", "4,9", "5,10", "10,11" };
