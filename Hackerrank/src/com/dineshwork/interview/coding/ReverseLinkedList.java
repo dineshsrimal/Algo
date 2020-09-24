@@ -82,7 +82,7 @@ class CustomerLinkedList {
 		while(current != head) {
 			ListNode tmpNext = current.next;
 			ListNode tmpPrev = current.previous;
-			current.next = current.previous;
+			current.next = tmpPrev;
 			current.previous = tmpNext;
 			current = tmpPrev;
 			
