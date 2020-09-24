@@ -1,13 +1,6 @@
 package com.dineshwork.interview.coding;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class DeleteNodeFromTree2 {
 	
@@ -37,14 +30,16 @@ public class DeleteNodeFromTree2 {
 		}
 		
 		System.out.println(tree);
-		System.out.println("delete parent...: " + deleteParentProcess(tree, new Node(4)));
+		Node rootNode = tree.get(1);
+		System.out.println("delete parent...: " + deleteParentBFS(rootNode, new Node(4)));
+		System.out.println("delete parent...: " + deletePaerentDFS(rootNode, new Node(4)));
 	}
 	
-	public static boolean deleteParentProcess(Map<Integer, Node> tree, Node deleteNode) {
-		Node rootNode = tree.get(1);
+	public static boolean deleteParentBFS(Node sourceNode, Node deleteNode) {
+		
 		Queue<Node> traversedNodes = new LinkedList<>();
-		traversedNodes.add(rootNode);
-		rootNode.isVisited = true;
+		traversedNodes.add(sourceNode);
+		sourceNode.isVisited = true;
 
 		while (!traversedNodes.isEmpty()) {
 
@@ -68,6 +63,41 @@ public class DeleteNodeFromTree2 {
 		
 		return false;
 	}
+	
+	
+	public static boolean deletePaerentDFS(Node sourceNode, Node deleteNode) {
+
+		Stack<Node> traversedNodes = new Stack<>();
+		traversedNodes.push(sourceNode);
+		sourceNode.isVisited = true;
+
+		while (!traversedNodes.isEmpty()) {
+			Node currentNode = traversedNodes.pop();
+
+			if (currentNode.isVisited) {
+				return false;
+			}
+
+			currentNode.isVisited = true;
+
+			for (Node node : currentNode.childs) {
+				if(node.isVisited) {
+					return false;
+				}				
+				System.out.println("Visting Node: " + node.id);
+				
+				if (node.id == deleteNode.id) {
+					currentNode.childs.remove(node);
+					return true;
+				}
+				
+				node.isVisited = true;
+				traversedNodes.push(node);
+			}
+		}
+
+		return false;
+	}
 }
 
 class Node{
@@ -78,7 +108,7 @@ class Node{
 	
 	public Node(int idVal) {
 		this.id = idVal;
-		this.childs = new ArrayList<>();
+		this.childs = new LinkedList<>();
 	}
 	
 	public boolean equals(Object o) {
