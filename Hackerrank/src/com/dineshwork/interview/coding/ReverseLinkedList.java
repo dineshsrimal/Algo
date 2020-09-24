@@ -19,7 +19,9 @@ public class ReverseLinkedList {
 		customLinkedList.add(4);
 		
 		System.out.println("Before Reveresed: " + list);
-		System.out.println("Before Reveresed: " + reversedEasy(list));
+		System.out.println("After Reveresed: " + reversedEasy(list));
+		System.out.println("After Reveresed Efficient: " + reversedEfficient(list));
+		System.out.println("After Reveresed In Build: " + reversedInBuilt(list));
 		
 		System.out.println("==========================================");
 		
@@ -27,6 +29,8 @@ public class ReverseLinkedList {
 		System.out.println("Reveres ing the customer linked list...");
 		customLinkedList.reverse();
 		customLinkedList.traverse();
+		
+		//Follow this link - https://www.geeksforgeeks.org/reverse-a-linkedlist-in-java/
 		
 	}
 	
@@ -39,7 +43,27 @@ public class ReverseLinkedList {
 		}
 		
 		return reversed;
-	}	
+	}
+	
+	public static LinkedList<Integer> reversedEfficient(LinkedList<Integer> original) {
+		
+		int length = original.size();
+		
+		for(int i=0; i < length / 2; i++) {
+			Integer tmp = original.get(i);
+			original.set(i, original.get(length - 1 -  i));
+			original.set(length - 1 -  i, tmp);
+		}
+		
+		return original;
+		
+	}
+	
+	public static LinkedList<Integer> reversedInBuilt(LinkedList<Integer> original) {
+		
+		Collections.reverse(original);
+		return original;
+	}
 	
 		
 }
