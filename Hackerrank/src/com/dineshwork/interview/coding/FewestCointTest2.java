@@ -20,35 +20,52 @@ public class FewestCointTest2 {
 	}
 	
 	public static int fewestCoin(String str) {
-		String [] chars = str.split(""); 
-		List<String> distinctStrList =  Stream.of(chars).distinct().collect(Collectors.toList());
-		Set<String> distinctStrSet;
-		
-		int minSubtringLength = 100000000;
-		int subStringLength;
-		
-		for(int i=0; i < chars.length; i++) {			
-			distinctStrSet = new HashSet<String>(distinctStrList);
-			
-			for(int j=i; j < chars.length; j++) {
-				
-				if(distinctStrSet.contains(chars[j])) {
-					distinctStrSet.remove(chars[j]);
-				}
-				
-				if(distinctStrSet.isEmpty()) {
-					subStringLength = j - i + 1;
-					distinctStrSet = new HashSet<String>(distinctStrList);
-					
-					if(subStringLength < minSubtringLength) {
-						minSubtringLength = subStringLength;
-					}
-				}				
-				
-			}
-		}		
-		
-		return minSubtringLength;
+		 int n = str.length(); 
+		 int MAX_CHARS = 256;
+		  
+	        // Count all distinct characters. 
+	        int dist_count = 0; 
+	  
+	        boolean[] visited = new boolean[MAX_CHARS]; 
+	        Arrays.fill(visited, false); 
+	        for (int i = 0; i < n; i++) { 
+	            if (visited[str.charAt(i)] == false) { 
+	                visited[str.charAt(i)] = true; 
+	                dist_count++; 
+	            } 
+	        } 	  
+	     
+	        int start = 0, start_index = -1; 
+	        int min_len = Integer.MAX_VALUE; 
+	  
+	        int count = 0; 
+	        int[] curr_count = new int[MAX_CHARS]; 
+	        for (int j = 0; j < n; j++) { 
+	            // Count occurrence of characters of string 
+	            curr_count[str.charAt(j)]++; 
+	  
+	            if (curr_count[str.charAt(j)] == 1) 
+	                count++; 
+	  
+	            // if all the characters are matched 
+	            if (count == dist_count) { 
+	                
+	                while (curr_count[str.charAt(start)] > 1) { 
+	                    if (curr_count[str.charAt(start)] > 1) 
+	                        curr_count[str.charAt(start)]--; 
+	                    start++; 
+	                } 
+	  
+	                // Update window size 
+	                int len_window = j - start + 1; 
+	                if (min_len > len_window) { 
+	                    min_len = len_window; 
+	                    start_index = start; 
+	                } 
+	            } 
+	        } 
+	       
+	        return str.substring(start_index, start_index + min_len).length(); 
 	}
 	
 	public static int fewestCoinOptimized(String str) {
