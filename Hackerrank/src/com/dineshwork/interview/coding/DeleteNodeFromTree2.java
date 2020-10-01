@@ -31,27 +31,22 @@ public class DeleteNodeFromTree2 {
 		
 		System.out.println(tree);
 		Node rootNode = tree.get(1);
-		System.out.println("delete parent...: " + deleteParentBFS(rootNode, new Node(4)));
-		System.out.println("delete parent...: " + deletePaerentDFS(rootNode, new Node(4)));
+		//System.out.println("delete parent...: " + deleteParentBFS(rootNode, new Node(8)));
+		traverseDFS(rootNode, new Node(7));
+		System.out.println("delete parent...: " + deletePaerentDFS(rootNode, new Node(7)));
 	}
 	
 	public static boolean deleteParentBFS(Node sourceNode, Node deleteNode) {
 		
 		Queue<Node> traversedNodes = new LinkedList<>();
 		traversedNodes.add(sourceNode);
-		sourceNode.isVisited = true;
 
 		while (!traversedNodes.isEmpty()) {
-
-			Node currentNode = traversedNodes.remove();
-
+			Node currentNode = traversedNodes.remove();			
 
 			for (Node node : currentNode.childs) {
-				if (node.isVisited == false) {
-					System.out.println("Visting Node: " + node.id);
-					node.isVisited = true;
-					traversedNodes.add(node);
-				}
+				System.out.println("Visting Node: " + node.id);				
+				traversedNodes.add(node);
 
 				if (node.equals(deleteNode)) {
 					currentNode.childs.remove(node);
@@ -66,37 +61,27 @@ public class DeleteNodeFromTree2 {
 	
 	
 	public static boolean deletePaerentDFS(Node sourceNode, Node deleteNode) {
-
-		Stack<Node> traversedNodes = new Stack<>();
-		traversedNodes.push(sourceNode);
-		sourceNode.isVisited = true;
-
-		while (!traversedNodes.isEmpty()) {
-			Node currentNode = traversedNodes.pop();
-
-			if (currentNode.isVisited) {
-				return false;
-			}
-
-			currentNode.isVisited = true;
-
-			for (Node node : currentNode.childs) {
-				if(node.isVisited) {
-					return false;
-				}				
-				System.out.println("Visting Node: " + node.id);
 				
-				if (node.id == deleteNode.id) {
-					currentNode.childs.remove(node);
-					return true;
-				}
-				
-				node.isVisited = true;
-				traversedNodes.push(node);
+		for(Node currentNode : sourceNode.childs ) {	
+			System.out.println("Visting Node: " + currentNode.id);
+			
+			if(currentNode.equals(deleteNode)) {
+				sourceNode.childs.remove(currentNode);
+				return true;
 			}
+			
+			return deletePaerentDFS(currentNode, deleteNode);
 		}
-
+		
 		return false;
+	}
+	
+	public static void traverseDFS(Node sourceNode, Node deleteNode) {
+		
+		for(Node currentNode : sourceNode.childs ) {	
+			System.out.println("Visting Node: " + currentNode.id);
+			deletePaerentDFS(currentNode, deleteNode);
+		}
 	}
 }
 
@@ -104,7 +89,6 @@ class Node{
 	
 	public int id;
 	public List<Node> childs;
-	public boolean isVisited;
 	
 	public Node(int idVal) {
 		this.id = idVal;
@@ -121,6 +105,6 @@ class Node{
 
 	@Override
 	public String toString() {
-		return "Node[id=" + id + " childs="+ Arrays.toString(childs.toArray()) + "]";
+		return "id=" + id;
 	}
 }
