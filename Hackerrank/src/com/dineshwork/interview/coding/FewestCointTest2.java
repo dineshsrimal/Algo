@@ -71,6 +71,7 @@ public class FewestCointTest2 {
 	public static int fewestCoinOptimized(String str) {
 		String [] chars = str.split(""); 
 		List<String> distinctStrList =  Stream.of(chars).distinct().collect(Collectors.toList());
+		//Set<String> distinctSet =  Stream.of(chars).distinct().collect(Collectors.toSet());
 		Set<String> distinctStrSet;
 		
 		int minSubtringLength = 100000000;
